@@ -44,15 +44,15 @@ function App() {
     <>
       <div className="container mx-auto p-4 max-w-3xl flex flex-col">
         <h1 className='text-3xl font-bold mb-6 text-center text-primary font-titulo'>Generador de Presupuesto</h1>
-        <p className="text-lg text-center mb-8">Crea tu presupuesto y genera una imagen fácilmente</p>
+        <p className="text-base text-center mb-8">Crea tu presupuesto y genera una imagen fácilmente</p>
 
         <div className="bg-white shadow-md rounded-lg p-6 mb-4">
           <h2 className="text-xl font-semibold mb-2">Agregar Línea de Presupuesto</h2>
-          <p className="text-gray-600 mb-4">Ingresa los detalles de cada ítem de tu presupuesto</p>
+          <p className="text-gray-600 text-sm mb-4">Ingresa los detalles de cada ítem de tu presupuesto</p>
           <div className="space-y-4">
             <div className="flex items-center space-x-4">
               <label htmlFor="detalle" className="w-1/4 text-right">
-                A quien va dirigido?
+                Para:
               </label>
               <input
                 id="detalle"
@@ -121,7 +121,7 @@ function App() {
                 type="number"
                 value={precioUnit * cantidad}
                 readOnly
-                className="w-3/4 p-2 border rounded-md border-gray-100 !ml-1"
+                className="w-3/4 p-2 rounded-md !ml-1"
               />
             </div>
           </div>
