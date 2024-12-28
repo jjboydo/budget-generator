@@ -153,7 +153,7 @@ function App() {
           >
             <div className="border-2 border-gray-800 p-4">
               <div className="text-center mb-4">
-                <img src="/public/interplast-high-resolution-logo-transparent.png" alt="Nazcar" className="w-44 mb-6 mx-auto" />
+                <img src="/interplast-high-resolution-logo-transparent.png" alt="Logo" className="w-44 mb-6 mx-auto" />
                 <div className="text-xs mb-1 font-semibold">DOCUMENTO NO</div>
                 <div className="text-xs mb-2 font-semibold">VALIDO COMO FACTURA</div>
                 <div className="flex justify-between mb-4">
