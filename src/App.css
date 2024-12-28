@@ -1,42 +1,28 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* AGregar fondo de color solido a todo el sitio */
+
+body {
+    background-color: #fff4e4;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Vista previa (en móviles) */
+.presupuesto-preview {
+    width: 100%;
+    /* Ocupa el ancho disponible en la pantalla */
+    max-width: 100%;
+    /* Limita el tamaño máximo */
+    margin: 0 auto;
+    padding: 16px;
+    /* Ajusta el padding para que se vea bien en móviles */
+    font-size: 0.9rem;
+    /* Reduce la fuente para pantallas pequeñas */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+/* Para la exportación a imagen (ancho fijo de 210mm) */
+.presupuesto-export {
+    width: 210mm;
+    /* Ancho fijo para descarga */
+    margin: 0 auto;
+    /* Centrado */
+    font-size: 1rem;
+    /* Tamaño base de fuente */
 }
