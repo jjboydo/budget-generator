@@ -24,7 +24,7 @@ function App() {
 
   // Manejar el cambio de valores
   const handlePrecioUnitChange = (e) => {
-    const value = parseFloat(e.target.value) || 0;
+    const value = parseFloat(e.target.value) || '';
     setPrecioUnit(value);
     if (!calculoManual) {
       setSubtotal(value * cantidad);
@@ -32,7 +32,7 @@ function App() {
   };
 
   const handleCantidadChange = (e) => {
-    const value = parseFloat(e.target.value) || 0;
+    const value = parseFloat(e.target.value) || '';
     setCantidad(value);
     if (!calculoManual) {
       setSubtotal(precioUnit * value);
@@ -227,7 +227,7 @@ function App() {
                 <tbody>
                   {lineas.map((linea, index) => (
                     <tr key={index} className="border-b border-secondary/80">
-                      <td className="pb-3 pt-1">{linea.cantidad}</td>
+                      <td className="pb-3 pt-1">{linea.cantidad || ""}</td>
                       <td className='pb-3 pt-1'>{linea.detalle}</td>
                       <td className="pb-3 pt-1 text-right">{linea.precioUnit === "-" ? "" : "$" + linea.precioUnit.toFixed(2)}</td>
                       <td className="pb-3 pt-1 text-right">${linea.subtotal.toFixed(2)}</td>
