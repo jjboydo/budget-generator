@@ -10,14 +10,48 @@ function App() {
   const [precioUnit, setPrecioUnit] = useState('')
   const [cantidad, setCantidad] = useState('')
   const [destinatario, setDestinatario] = useState('')
-  const [estaGenerando, setEstaGenerando] = useState(false)
+  const [calculoManual, setCalculoManual] = useState(false);
+  const [subtotal, setSubtotal] = useState('');
   const presupuestoRef = useRef(null)
 
+  const handleSwitchChange = () => {
+    setCalculoManual(!calculoManual);
+    if (!calculoManual) {
+      // Si el usuario desactiva el modo manual, recalcular el subtotal automáticamente
+      setSubtotal(precioUnit * cantidad);
+    }
+  };
+
+  // Manejar el cambio de valores
+  const handlePrecioUnitChange = (e) => {
+    const value = parseFloat(e.target.value) || 0;
+    setPrecioUnit(value);
+    if (!calculoManual) {
+      setSubtotal(value * cantidad);
+    }
+  };
+
+  const handleCantidadChange = (e) => {
+    const value = parseFloat(e.target.value) || 0;
+    setCantidad(value);
+    if (!calculoManual) {
+      setSubtotal(precioUnit * value);
+    }
+  };
+
+  const handleSubtotalChange = (e) => {
+    if (calculoManual) {
+      setSubtotal(parseFloat(e.target.value) || '');
+    }
+  };
+
   const agregarLinea = () => {
-    if (detalle && precioUnit) {
-      setLineas([...lineas, { detalle, precioUnit: parseFloat(precioUnit), cantidad: parseFloat(cantidad), subtotal: precioUnit * cantidad }])
+    if (detalle) {
+      setLineas([...lineas, { detalle, precioUnit: parseFloat(precioUnit) || "-", cantidad: parseFloat(cantidad), subtotal: parseFloat(subtotal) }])
       setDetalle('')
       setPrecioUnit('')
+      setCantidad('')
+      setSubtotal('')
     }
   }
 
@@ -44,7 +78,6 @@ function App() {
     <>
       <div className="container mx-auto p-4 max-w-3xl flex flex-col">
         <h1 className='text-3xl font-bold mb-6 text-center text-primary font-titulo'>Generador de Presupuesto</h1>
-        <p className="text-base text-center mb-8">Crea tu presupuesto y genera una imagen fácilmente</p>
 
         <div className="bg-white shadow-md rounded-lg p-6 mb-4">
           <h2 className="text-xl font-semibold mb-2">Agregar Línea de Presupuesto</h2>
@@ -78,6 +111,18 @@ function App() {
               />
             </div>
             <div className="flex items-center space-x-4">
+              <label htmlFor="manual" className="w-1/4 text-right">
+                Cálculo Manual
+              </label>
+              <input
+                id="manual"
+                type="checkbox"
+                checked={calculoManual}
+                onChange={handleSwitchChange}
+                className="w-5 h-4 p-2 border rounded-md"
+              />
+            </div>
+            <div className="flex items-center space-x-4">
               <label htmlFor="precioUnit" className="w-1/4 text-right">
                 Precio Unitario
               </label>
@@ -88,7 +133,7 @@ function App() {
                 id="precioUnit"
                 type="number"
                 value={precioUnit}
-                onChange={(e) => setPrecioUnit(e.target.value)}
+                onChange={handlePrecioUnitChange}
                 className="w-3/4 p-2 border rounded-md !ml-1"
                 placeholder="Ej: 100.00"
               />
@@ -104,7 +149,7 @@ function App() {
                 id="cantidad"
                 type="number"
                 value={cantidad}
-                onChange={(e) => setCantidad(e.target.value)}
+                onChange={handleCantidadChange}
                 className="w-3/4 p-2 border rounded-md !ml-1"
                 placeholder="Ej: 1"
               />
@@ -119,9 +164,10 @@ function App() {
               <input
                 id="subtotal"
                 type="number"
-                value={precioUnit * cantidad}
-                readOnly
-                className="w-3/4 p-2 rounded-md !ml-1"
+                value={subtotal}
+                onChange={handleSubtotalChange}
+                disabled={!calculoManual}
+                className="w-3/4 p-2 border rounded-md !ml-1"
               />
             </div>
           </div>
@@ -183,7 +229,7 @@ function App() {
                     <tr key={index} className="border-b border-secondary/80">
                       <td className="pb-3 pt-1">{linea.cantidad}</td>
                       <td className='pb-3 pt-1'>{linea.detalle}</td>
-                      <td className="pb-3 pt-1 text-right">${linea.precioUnit.toFixed(2)}</td>
+                      <td className="pb-3 pt-1 text-right">{linea.precioUnit === "-" ? "" : "$" + linea.precioUnit.toFixed(2)}</td>
                       <td className="pb-3 pt-1 text-right">${linea.subtotal.toFixed(2)}</td>
                     </tr>
                   ))}
